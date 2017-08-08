@@ -4,14 +4,11 @@ import numpy as np
 import time
 
 class Image_proj:
-    def __init__(self, sample_path, sph_file, fish_left_file, fish_right_file):
+    def __init__(self, sample_path, sph_file):
         self.sample_path = sample_path
         self.spherical_path = sample_path+sph_file
-        self.fish_left_path = sample_path+fish_left_file
-        self.fish_right_path = sample_path+fish_right_file
         self.sph_img = []
-        self.fish_left_img = []
-        self.fish_right_img = []
+
         self.sph_w = 0      # x (longitude)
         self.sph_h = 0      # y (latitude)
         self.sph_center = [0,0] # [x,y]
@@ -34,10 +31,6 @@ class Image_proj:
 
         # cv2.imshow('sph_img',self.sph_img)
         # cv2.waitKey(0)
-
-    def load_fish_image(self):
-        self.fish_left_img = cv2.imread(self.fish_left_path)
-        self.fish_right_img = cv2.imread(self.fish_right_path)
 
     def gnomonic_proj(self, latitude, longitude):
         # matrix version of gnomonic projection
@@ -98,12 +91,11 @@ if __name__ == '__main__':
     # load
     sample_path = "../sample/"
     sph_file = "example_sph_4.jpg"
-    fish_left_file = "exampleleft.jpg"
-    fish_right_file = "exampleright.jpg"
+
     # parameters
 
 
-    img_projection = Image_proj(sample_path,sph_file,fish_left_file,fish_right_file)
+    img_projection = Image_proj(sample_path,sph_file)
     img_projection.load_sph_image()
 
     # out_1 = img_projection.gnomonic_proj(0, 90)
