@@ -90,7 +90,7 @@ if __name__ == '__main__':
 
     # load
     sample_path = "../samples/"
-    sph_file = "example_sph_4.jpg"
+    sph_file = "sample.jpg"
 
     # parameters
 
