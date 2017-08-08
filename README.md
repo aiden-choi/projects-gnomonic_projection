@@ -1,5 +1,6 @@
 # projects-gnomonic_projection
 Gnomonic projection
 
-implement formulas from http://mathworld.wolfram.com/GnomonicProjection.html
+eqirectangular to gnomonic projection.
 
+python implementation of formulas from http://mathworld.wolfram.com/GnomonicProjection.html
