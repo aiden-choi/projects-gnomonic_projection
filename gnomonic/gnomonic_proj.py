@@ -89,7 +89,7 @@ class Image_proj:
 if __name__ == '__main__':
 
     # load
-    sample_path = "../sample/"
+    sample_path = "../samples/"
     sph_file = "example_sph_4.jpg"
 
     # parameters
