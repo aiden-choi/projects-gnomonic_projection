@@ -96,7 +96,7 @@ class Image_proj:
 if __name__ == '__main__':
 
     # load
-    sample_path = "/home/june/Looxid/Dataset/VRfisheye/"
+    sample_path = "../sample/"
     sph_file = "example_sph_4.jpg"
     fish_left_file = "exampleleft.jpg"
     fish_right_file = "exampleright.jpg"
