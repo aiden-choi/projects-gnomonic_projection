@@ -56,11 +56,20 @@ class Image_proj:
         rho_x = np.tile(r_x * r_x, (len(r_y), 1))
         rho_y = np.transpose(np.tile(r_y * r_y, (len(r_x), 1)))
         rho = np.sqrt(rho_x+rho_y)
-        c = np.arctan2(rho,1)
+        c = np.arctan(rho)       
+        
+        sin_latit1 = np.sin(latit1)
+        cos_latit1 = np.cos(latit1)
+        cos_c = np.cos(c) # bottleneck
+        sin_c = np.sin(c) # bottleneck
 
-        cur_latit = np.arcsin( np.cos(c)*np.sin(latit1) + r_y[:,None]*np.sin(c)*np.cos(latit1)/rho)
-        cur_long = long0 + np.arctan2(r_x*np.sin(c),(rho*np.cos(latit1)*np.cos(c) - r_y[:,None]*np.sin(latit1)*np.sin(c)))
+        X1 = cos_c*sin_latit1 + r_y[:,None]*sin_c*cos_latit1/rho
+        cur_latit = np.arcsin(X1) # bottleneck
 
+        X2 = r_x*sin_c
+        X3 = (rho*cos_latit1*cos_c - r_y[:,None]*sin_latit1*sin_c)
+        cur_long = long0 + np.arctan2(X2,X3) # bottleneck
+        
         sph_x = cur_long / (2 * np.pi) + 0.5    # 2*pi -> -180 ~ 180. and +0.5 for shift
         sph_y = cur_latit / np.pi + 0.5         # pi -> -90 ~ 90.   and +0.5 for shift
 
@@ -80,7 +89,7 @@ class Image_proj:
         y_ind = np.transpose(np.tile(y, (len(x),1)))
         x_ind = np.tile(x, (len(y),1))
 
-        output_img[y_ind,x_ind,:] = self.sph_img[sph_y,sph_x,:]
+        output_img[y_ind,x_ind,:] = self.sph_img[sph_y,sph_x,:] # bottleneck
         output_img= np.uint8(output_img)
 
 
